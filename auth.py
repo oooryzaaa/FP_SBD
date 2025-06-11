@@ -1,18 +1,16 @@
 from db_config import connect_db
-import mysql.connector  
-from db_config import connect_db
 
 def register_user(username, password, role):
     db = connect_db()
     cursor = db.cursor()
 
     try:
-        query = "INSERT INTO users (username, password_hash, role) VALUES (%s, %s, %s)"
-        cursor.execute(query, (username, password, role))
+        query = "INSERT INTO Users (user_username, user_password, user_email, user_address, user_phone, user_role) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(query, (username, password, "email@example.com", "Default Address", "08123456789", role))
         db.commit()
-        print("✅ Registrasi berhasil.")
-    except mysql.connector.IntegrityError:
-        print("⚠️ Username sudah digunakan.")
+        print("Registrasi berhasil.")
+    except Exception as e:
+        print("Registrasi gagal:", e)
     finally:
         cursor.close()
         db.close()
@@ -21,7 +19,7 @@ def login_user(username, password):
     db = connect_db()
     cursor = db.cursor()
 
-    query = "SELECT role FROM users WHERE username=%s AND password_hash=%s"
+    query = "SELECT user_id, user_role FROM Users WHERE user_username=%s AND user_password=%s"
     cursor.execute(query, (username, password))
     result = cursor.fetchone()
 
@@ -29,8 +27,9 @@ def login_user(username, password):
     db.close()
 
     if result:
-        print(f"✅ Login berhasil sebagai {result[0]}")
-        return result[0]
+        user_id, role = result
+        print(f"Login berhasil sebagai {role}")
+        return user_id, role
     else:
-        print("❌ Login gagal. Username atau password salah.")
-        return None
+        print("Login gagal. Username atau password salah.")
+        return None, None
