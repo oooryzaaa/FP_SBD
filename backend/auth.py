@@ -1,28 +1,35 @@
 class AuthSystem:
     # [ALL ROLES]
-    # Mendaftarkan user baru dengan username, password, dan role.
-    # Parameter:
-    # - username (str): nama user
-    # - password (str): password (akan di-hash)
-    # - role (str): salah satu dari ['customer', 'seller', 'admin']
-    # Return: True jika berhasil, False jika username sudah ada.
+    # Mendaftarkan user baru ke sistem
+    # Parameters:
+    # - username: str
+    # - password: str (akan di-hash)
+    # - role: str (customer, seller, admin)
+    # Returns: bool (True jika sukses, False jika username sudah digunakan)
     def register_user(self, username, password, role):
         pass
 
     # [ALL ROLES]
-    # Melakukan login user.
-    # Parameter:
-    # - username (str)
-    # - password (str)
-    # Return: True jika login berhasil, False jika gagal.
+    # Login user ke sistem
+    # Parameters:
+    # - username: str
+    # - password: str
+    # Returns: bool (True jika sukses, False jika gagal)
     def login_user(self, username, password):
         pass
 
     # [ALL ROLES]
-    # Mengambil role dari user tertentu (untuk validasi akses fitur).
-    # Parameter:
-    # - username (str)
-    # Return: role (str) → 'customer', 'seller', atau 'admin'
-    def get_user_role(self, username):
+    # Menghapus akun user
+    # Parameters:
+    # - username: str
+    # Returns: bool
+    def remove_user(self, username):
         pass
 
+    # [ALL ROLES]
+    # Mengambil role user
+    # Parameters:
+    # - username: str
+    # Returns: str (role user)
+    def get_user_role(self, username):
+        pass
