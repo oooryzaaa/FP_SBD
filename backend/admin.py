@@ -6,8 +6,8 @@ class AdminPanel:
         #koneksinya mysql taruh sini, tinggal ubah ubah aja
         self.mysql_conn = mysql.connector.connect(
             host = "localhost",
-            user = "root",
-            password = "password",
+            user = "usernya/ root",
+            password = "passwordnya",
             database = "nama database"
         )
         self.mysql_cursor = self.mysql_conn.cursor(dictionary = True)
@@ -15,7 +15,7 @@ class AdminPanel:
         #koneksi mongodb taruh sini, tinggal ubah2
         self.mongo_client = MongoClient("")
         self.mongo_db = self.mongo_client["nama database"]
-        self.review_collection = self.mongo_db["reviews"]
+        self.review_collection = self.mongo_db["nama collection buat review"]
 
 
     # [ADMIN] Melihat semua review yang dilaporkan
@@ -41,10 +41,10 @@ class AdminPanel:
     def view_reported_customers(self):
         self.mysql_cursor.execute("SELECT * FROM customers WHERE reported_status = 1")
         for row in self.mysql_cursor.fetchall():
-            print(f"{row['id']} | {row['name']} | {row['email']}")
+            print(f"{row['customer_id']} | {row['customer_name']} | {row['customer_email']}")
 
     def remove_customer(self, customer_id):
-        self.mysql_cursor.execute("DELETE FROM customers WHERE id = %s", (customer_id))
+        self.mysql_cursor.execute("DELETE FROM customers WHERE customer_id = %s", (customer_id))
         self.mysql_conn.commit()
         print("Customer berhasil dihapus,")
 
@@ -52,10 +52,10 @@ class AdminPanel:
     def view_reported_sellers(self):
         self.mysql_cursor.execute("SELECT * FROM sellers WHERE reported_status = 1")
         for row in self.mysql_cursor.fetchall():
-            print(f"{row['id']} | {row['store_name']} | {row['email']}")
+            print(f"{row['seller_id']} | {row['store_name']} | {row['store_email']}")
 
     def remove_seller(self, seller_id):
-        self.mysql_cursor.execute("DELETE FROM customers WHERE id = %s", (seller_id))
+        self.mysql_cursor.execute("DELETE FROM sellers seller_id = %s", (seller_id))
         self.mysql_conn.commit()
         print("Seller berhasil dihapus,")
 
