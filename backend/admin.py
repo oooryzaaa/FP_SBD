@@ -1,21 +1,7 @@
 from bson.objectid import ObjectId
+
 class AdminPanel:
-    def __init__(self):
-        #koneksinya mysql taruh sini, tinggal ubah ubah aja
-        self.mysql_conn = mysql.connector.connect(
-            host = "localhost",
-            user = "usernya/ root",
-            password = "passwordnya",
-            database = "nama database"
-        )
-        self.mysql_cursor = self.mysql_conn.cursor(dictionary = True)
-
-        #koneksi mongodb taruh sini, tinggal ubah2
-        self.mongo_client = MongoClient("")
-        self.mongo_db = self.mongo_client["nama database"]
-        self.review_collection = self.mongo_db["nama collection buat review"]
-
-
+    
     # [ADMIN] Melihat semua review yang dilaporkan
     def view_reported_reviews(self):
         print("Reported Reviews: ")
