@@ -1,5 +1,3 @@
-import mysql.connector
-from pymongo import MongoClient
 from bson.objectid import ObjectId
 class AdminPanel:
     def __init__(self):
@@ -58,8 +56,3 @@ class AdminPanel:
         self.mysql_cursor.execute("DELETE FROM sellers seller_id = %s", (seller_id))
         self.mysql_conn.commit()
         print("Seller berhasil dihapus,")
-
-    def close(self):
-        self.mysql_cursor.close()
-        self.mysql_conn.close()
-        self.mongo_client.close()
