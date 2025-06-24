@@ -1,9 +1,8 @@
-# fitur khusus seller yaitu remove user
 import hashlib
 
 class AuthSystem:
     def __init__(self):
-        self.users = {}  # format: {username: {"password": hashed_pw, "role": role}}
+        self.users = {}  # {username: {"password": ..., "role": ..., "email": ..., etc}}
 
     def _hash_password(self, password):
         return hashlib.sha256(password.encode()).hexdigest()
@@ -13,7 +12,7 @@ class AuthSystem:
         if username in self.users:
             print("Username sudah digunakan.")
             return False
-        if role not in ["customer", "seller", "admin"]:
+        if role not in ["buyer", "seller", "admin"]:
             print("Role tidak valid.")
             return False
         hashed_pw = self._hash_password(password)
@@ -34,7 +33,7 @@ class AuthSystem:
             print("Password salah.")
             return False
 
-    # [SELLER ONLY] Menghapus akun user lain
+    # [SELLER ONLY] Menghapus user lain, hanya yang role-nya "buyer"
     def remove_user(self, current_username, target_username):
         current_role = self.get_user_role(current_username)
         if current_role != "seller":
@@ -45,6 +44,9 @@ class AuthSystem:
             return False
         if target_username == current_username:
             print("Seller tidak dapat menghapus akun dirinya sendiri.")
+            return False
+        if self.users[target_username]["role"] != "buyer":
+            print("Seller hanya dapat menghapus akun buyer.")
             return False
         del self.users[target_username]
         print(f"User '{target_username}' berhasil dihapus oleh seller '{current_username}'.")
