@@ -2,13 +2,15 @@ class SalesAnalytics:
     def __init__(self):
         self.sales = []
 
-    # Menambahkan data penjualan (untuk simulasi)
-    def add_sale(self, product_id, seller_id, quantity, price_per_item):
+    # Simulasi tambah data penjualan (Order_Items)
+    def add_sale(self, order_id, product_id, seller_id, quantity, price_per_item):
         total_price = quantity * price_per_item
         self.sales.append({
+            "order_id": order_id,
             "product_id": product_id,
             "seller_id": seller_id,
             "quantity": quantity,
+            "price_per_item": price_per_item,
             "total_price": total_price
         })
 
@@ -18,13 +20,13 @@ class SalesAnalytics:
         total_qty = sum(s["quantity"] for s in report)
         total_income = sum(s["total_price"] for s in report)
 
-        print(f"Laporan Penjualan Seller ID {seller_id}")
-        print(f"Total Transaksi: {len(report)}")
-        print(f"Total Barang Terjual: {total_qty}")
-        print(f"Total Pendapatan: Rp{total_income:,}")
+        print(f"📊 Laporan Penjualan untuk Seller ID {seller_id}")
+        print(f"- Total Transaksi: {len(report)}")
+        print(f"- Total Barang Terjual: {total_qty}")
+        print(f"- Total Pendapatan: Rp{total_income:,}")
         return report
 
-    # [SYSTEM] Menampilkan produk terlaris
+    # [SYSTEM] Menampilkan produk terlaris (secara global)
     def get_top_products(self, top_n=3):
         from collections import defaultdict
 
@@ -32,10 +34,10 @@ class SalesAnalytics:
         for s in self.sales:
             product_sales[s["product_id"]] += s["quantity"]
 
-        # Urutkan berdasarkan jumlah terjual terbanyak
+        # Urut berdasarkan jumlah terjual
         sorted_products = sorted(product_sales.items(), key=lambda x: x[1], reverse=True)
 
-        print(f"Top {top_n} Produk Terlaris:")
+        print(f"\n🔥 Top {top_n} Produk Terlaris:")
         for i, (product_id, qty) in enumerate(sorted_products[:top_n], 1):
             print(f"{i}. Produk ID {product_id} - Terjual {qty} unit")
         
