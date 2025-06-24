@@ -1,4 +1,5 @@
 from backend.auth import AuthSystem
+from backend.dashboard_customer import DashboardCustomer
 
 # [ENTRY POINT] Sistem utama yang akan menjalankan alur menu login/register
 def main():
@@ -11,9 +12,16 @@ def main():
         choice = input("Pilih menu: ")
 
         if choice == "1":
-            pass  # implementasi register
+            print("===REGIST USER===")
+            username = input("Username: ")
+            password = input("Password: ")
+            role = input("Role: ")
+            auth.register_user(username, password, role)
         elif choice == "2":
-            pass  # login dan lanjut ke menu berdasarkan role
+            print("===LOGIN===")
+            username = input("Username: ")
+            password = input("Password: ")
+            auth.login_user(username, password)
         elif choice == "0":
             break
 
